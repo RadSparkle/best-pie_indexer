@@ -32,9 +32,24 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation group: 'org.elasticsearch', name: 'elasticsearch', version: '7.17.2'
     runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'edu.stanford.nlp:stanford-corenlp:4.5.5'
+    implementation 'edu.stanford.nlp:stanford-corenlp:4.5.5'
+    implementation 'edu.stanford.nlp:stanford-corenlp:4.5.5:models'
+    implementation files('lib/open-korean-text-2.1.0.jar')
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation 'org.scala-lang:scala-library:2.12.4'
+    implementation 'com.twitter.penguin:korean-text:4.4.4'
+
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+tasks.named('bootJar') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
