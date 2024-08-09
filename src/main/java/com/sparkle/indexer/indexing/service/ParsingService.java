@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.*;
@@ -79,9 +80,10 @@ public class ParsingService {
         Set<String> set = new HashSet<>();
 
         WebClient webClient = webClientBuilder.build();
-        String url = "http://127.0.0.1:5000/analyze?content=" + content;
-        TokenResponse response = webClient.get()
+        String url = "http://127.0.0.1:5000/analyze";
+        TokenResponse response = webClient.post()
                 .uri(url)
+                .body(BodyInserters.fromValue(Collections.singletonMap("content", content)))
                 .retrieve()
                 .bodyToMono(TokenResponse.class)
                 .block();
